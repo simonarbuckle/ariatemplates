@@ -65,7 +65,7 @@ Aria.classDefinition({
          * TestCase5 Calculate hours from string.
          */
         test_calculateHours : function () {
-            var time = "24";
+            var time = "23";
             var timeReturn = 0;
             var test = aria.utils.Date._calculateHours(time);
             this.assertEquals(test[0], timeReturn);
@@ -145,7 +145,7 @@ Aria.classDefinition({
             var useCases = ["22:4p:1", "99", "9p", "9h00", "9:9", "11:09   p", "9 9", "9/2", "9;2", "9-2", "9:9",
                     "09:9", "0909", "9h09", "9h9", "09h9", "9.51", "9.51pm", "9,5pm"];
 
-            var checker = ["22:04:01", "09:09:00", "21:00:00", "09:00:00", "09:09:00", "23:09:00", "09:09:00",
+            var checker = [null, "09:09:00", "21:00:00", "09:00:00", "09:09:00", "23:09:00", "09:09:00",
                     "09:02:00", "09:02:00", "09:02:00", "09:09:00", "09:09:00", "09:09:00", "09:09:00", "09:09:00",
                     "09:09:00", "09:51:00", "21:51:00", "21:05:00"];
 
