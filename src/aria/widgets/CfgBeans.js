@@ -796,6 +796,10 @@ module.exports = Aria.beanDefinitions({
                 "iconTooltip" : {
                     $type : "json:String",
                     $description : "Tooltip for the multiselect icon"
+                },
+                "waiIconLabel" : {
+                    $type : "json:String",
+                    $description : "aria-label attribute on the icon, when waiAria is activated"
                 }
             }
         },
@@ -886,6 +890,10 @@ module.exports = Aria.beanDefinitions({
                 "iconTooltip" : {
                     $type : "json:String",
                     $description : "Tooltip for the datepicker icon"
+                },
+                "waiIconLabel" : {
+                    $type : "json:String",
+                    $description : "aria-label attribute on the icon, when waiAria is activated"
                 },
                 "waiAriaCalendarLabel": {
                     $type : "json:String",
@@ -1107,6 +1115,10 @@ module.exports = Aria.beanDefinitions({
                 "waiSuggestionAriaLabelGetter" : {
                     $type : "common:Callback",
                     $description : "The callback specified in this parameter is called for each suggestion when the set of suggestions changes. It should return the aria-label attribute to set on the suggestion. This parameter is only used if waiAria is true."
+                },
+                "waiIconLabel" : {
+                    $type : "json:String",
+                    $description : "aria-label attribute on the icon, when waiAria is activated"
                 }
             }
         },

@@ -55,7 +55,9 @@ module.exports = Aria.classDefinition({
             "dropdown": 'unselectable="on"' + iconTooltip
         };
         if (cfg.waiAria) {
-            this._iconsAttributes.dropdown += ' role="button" aria-expanded="false" aria-haspopup="true"';
+            var waiIconLabel = cfg.waiIconLabel;
+            this._iconsAttributes.dropdown += ' role="button" aria-expanded="false" aria-haspopup="true"' +
+                (waiIconLabel ? ' aria-label="' + waiIconLabel + '"' : "");
         }
     },
     $destructor : function () {

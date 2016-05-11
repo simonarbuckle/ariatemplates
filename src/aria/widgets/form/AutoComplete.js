@@ -47,12 +47,20 @@ module.exports = Aria.classDefinition({
 
         this.$DropDownTextInput.constructor.call(this, cfg, ctxt, lineNumber, controllerInstance);
 
+        var waiAria = cfg.waiAria;
         if (cfg.expandButton) {
             this._iconsAttributes = {
                 // unselectable is necessary on IE so that, on mouse down, there is no blur of the active element
                 // (preventing the default action on mouse down does not help on IE)
                 "dropdown" : 'unselectable="on"'
             };
+
+            if (waiAria) {
+                var waiIconLabel = cfg.waiIconLabel;
+                this._iconsAttributes.dropdown += ' role="button" aria-expanded="false" aria-haspopup="true"' +
+                   (waiIconLabel ? ' aria-label="' + waiIconLabel + '"' : "");
+            }
+
         } else {
             /**
              * Array of icon names which need to be hidden.
@@ -74,7 +82,7 @@ module.exports = Aria.classDefinition({
         controllerInstance.expandButton = cfg.expandButton;
         controllerInstance.selectionKeys = cfg.selectionKeys;
         controllerInstance.preselect = cfg.preselect;
-        if (cfg.waiAria && cfg.waiSuggestionAriaLabelGetter) {
+        if (waiAria && cfg.waiSuggestionAriaLabelGetter) {
             controllerInstance.waiSuggestionAriaLabelGetter = ariaUtilsFunction.bind(this._waiSuggestionAriaLabelGetter, this);
         }
 
@@ -88,6 +96,7 @@ module.exports = Aria.classDefinition({
         this._waiSuggestionsChangedListener = null;
     },
     $destructor : function () {
+        this._dropDownIcon = null;
         this._removeWaiSuggestionsChangedListener();
 
         // The dropdown might still be open when we destroy the widget, destroy it now
@@ -280,6 +289,11 @@ module.exports = Aria.classDefinition({
             if (this._cfg.waiAria) {
                 var field = this.getTextInputField();
                 field.setAttribute("aria-owns", this.controller.getListWidget().getListDomId());
+
+                var dropDownIcon = this._getDropdownIcon();
+                if (dropDownIcon) {
+                    dropDownIcon.setAttribute("aria-expanded", "true");
+                }
             }
         },
 
@@ -292,7 +306,12 @@ module.exports = Aria.classDefinition({
                 var field = this.getTextInputField();
                 field.removeAttribute("aria-activedescendant");
                 field.removeAttribute("aria-owns");
-            }
+
+                var dropDownIcon = this._getDropdownIcon();
+                if (dropDownIcon) {
+                    dropDownIcon.setAttribute("aria-expanded", "false");
+                }
+           }
             this.$DropDownListTrait._afterDropdownClose.apply(this, arguments);
         },
 
@@ -384,6 +403,19 @@ module.exports = Aria.classDefinition({
                 this.$DropDownTextInput._onBoundPropertyChange.apply(this, arguments);
             }
         },
+
+        /**
+         * Return the dropdown icon
+         * @protected
+         */
+        _getDropdownIcon : function () {
+            var dropDownIcon = this._dropdownIcon;
+            if (!dropDownIcon && this._frame.getIcon) {
+                dropDownIcon = this._frame.getIcon("dropdown");
+            }
+            return dropDownIcon;
+        },
+
         /**
          * Initialization method called by the delegate engine when the DOM is loaded
          */
