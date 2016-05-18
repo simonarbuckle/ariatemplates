@@ -47,21 +47,7 @@ module.exports = Aria.classDefinition({
 
         this.$DropDownTextInput.constructor.call(this, cfg, ctxt, lineNumber, controllerInstance);
 
-        var waiAria = cfg.waiAria;
-        if (cfg.expandButton) {
-            this._iconsAttributes = {
-                // unselectable is necessary on IE so that, on mouse down, there is no blur of the active element
-                // (preventing the default action on mouse down does not help on IE)
-                "dropdown" : 'unselectable="on"'
-            };
-
-            if (waiAria) {
-                var waiIconLabel = cfg.waiIconLabel;
-                this._iconsAttributes.dropdown += ' role="button" aria-expanded="false" aria-haspopup="true"' +
-                   (waiIconLabel ? ' aria-label="' + waiIconLabel + '"' : "");
-            }
-
-        } else {
+        if (!cfg.expandButton) {
             /**
              * Array of icon names which need to be hidden.
              * @type Array
@@ -82,7 +68,7 @@ module.exports = Aria.classDefinition({
         controllerInstance.expandButton = cfg.expandButton;
         controllerInstance.selectionKeys = cfg.selectionKeys;
         controllerInstance.preselect = cfg.preselect;
-        if (waiAria && cfg.waiSuggestionAriaLabelGetter) {
+        if (cfg.waiAria && cfg.waiSuggestionAriaLabelGetter) {
             controllerInstance.waiSuggestionAriaLabelGetter = ariaUtilsFunction.bind(this._waiSuggestionAriaLabelGetter, this);
         }
 
@@ -96,7 +82,6 @@ module.exports = Aria.classDefinition({
         this._waiSuggestionsChangedListener = null;
     },
     $destructor : function () {
-        this._dropDownIcon = null;
         this._removeWaiSuggestionsChangedListener();
 
         // The dropdown might still be open when we destroy the widget, destroy it now
@@ -402,18 +387,6 @@ module.exports = Aria.classDefinition({
             if (propertyName != "popupOpen" || this._cfg.expandButton) {
                 this.$DropDownTextInput._onBoundPropertyChange.apply(this, arguments);
             }
-        },
-
-        /**
-         * Return the dropdown icon
-         * @protected
-         */
-        _getDropdownIcon : function () {
-            var dropDownIcon = this._dropdownIcon;
-            if (!dropDownIcon && this._frame.getIcon) {
-                dropDownIcon = this._frame.getIcon("dropdown");
-            }
-            return dropDownIcon;
         },
 
         /**

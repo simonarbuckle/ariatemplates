@@ -98,7 +98,6 @@ module.exports = Aria.classDefinition({
         }
     },
     $destructor : function () {
-        this._dropDownIcon = null;
         this._dropDownOpen = null;
         this.refreshPopup = null;
         this._listFocused = null;
@@ -345,18 +344,6 @@ module.exports = Aria.classDefinition({
         _reactToControllerReport : function (report, arg) {
 
             this.$DropDownTextInput._reactToControllerReport.call(this, report, arg);
-        },
-
-        /**
-         * Return the dropdown icon
-         * @protected
-         */
-        _getDropdownIcon : function () {
-            var dropDownIcon = this._dropdownIcon;
-            if (!dropDownIcon && this._frame.getIcon) {
-                dropDownIcon = this._frame.getIcon("dropdown");
-            }
-            return dropDownIcon;
         },
 
         /**

@@ -34,6 +34,41 @@
                 {value:'MX', label:'Mexicana', disabled:false},
                 {value:'QF', label:'Quantas', disabled:false}
             ]/}
+
+         {var countries = [
+                {
+                  value: "FR",
+                  label: "France"
+                },
+                {
+                  value: "CH",
+                  label: "Switzerland"
+                },
+                {
+                  value: "UK",
+                  label: "United Kingdom"
+                },
+                {
+                  value: "US",
+                  label: "United States"
+                },
+                {
+                  value: "ES",
+                  label: "Spain"
+                },
+                {
+                  value: "PL",
+                  label: "Poland"
+                },
+                {
+                  value: "SE",
+                  label: "Sweden"
+                },
+                {
+                  value: "USA",
+                  label: "United States of America"
+                }
+            ]/}
         <div>
             {@aria:TextField {
                 id : "tf",
@@ -83,6 +118,13 @@
                     listDisplay: "label"
                 },
                 items:testItems
+            }/}<br><br>
+            {@aria:SelectBox {
+              waiAria : true,
+              waiIconLabel: "Press space to open the selection list",
+              label : "All Countries: ",
+              labelWidth : 150,
+              options : countries
             }/}
         </div>
     {/macro}

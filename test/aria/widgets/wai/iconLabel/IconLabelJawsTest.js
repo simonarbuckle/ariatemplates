@@ -38,34 +38,30 @@ Aria.classDefinition({
                 ["click", this.getElementById("tf")],
                 ["pause", 2000],
 
+                ["type", null, "[tab]"],
+                ["pause", 500],
                 ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 250],
+                ["pause", 500],
 
+                ["type", null, "[tab]"],
+                ["pause", 500],
                 ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 250],
+                ["pause", 500],
 
+                ["type", null, "[tab]"],
+                ["pause", 500],
                 ["type", null, "[down]"],
-                ["pause", 250],
+                ["pause", 500],
+
+                ["type", null, "[tab]"],
+                ["pause", 500],
                 ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 250],
-                ["type", null, "[down]"],
-                ["pause", 1000]
+                ["pause", 500]
+
             ], {
                 fn: function () {
                     this.assertJawsHistoryEquals(
-                        "First textfield Edit\nType in text.\nCity\nEdit\nPress space to open the autocomplete list button menu collapsed\nTravel date\nEdit\nPress space to open the calendar button menu collapsed\nMulti-select:\nEdit\nPress space to open the selection list\nbutton menu collapsed",
+                        "First textfield Edit\nType in text.\nCity Edit\nType in text.\nPress space to open the autocomplete list button menu collapsed\nTravel date Edit\nType in text.\nPress space to open the calendar button menu collapsed\nedit\nType in text.\nPress space to open the selection list button menu collapsed\nAll Countries: Edit\nType in text.\nPress space to open the selection list\nbutton menu collapsed",
                         this.end,
                         function(response) {
                             return this.removeDuplicates(response);
